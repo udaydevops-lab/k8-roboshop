@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: mongodb
+  namespace:
+  labels:             # these labels are deployment labels
+    app: mongodb
+    project: roboshop
+    tier: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:      # these labels are used to find the pods
+      app: mongodb
+      project: roboshop
+      tier: db
+  template:
+    metadata:
+      labels:         # these labels are pod labels
+        app: mongodb
+        project: roboshop
+        tier: db
+    spec:
+      containers:
+        - name: mongodb
+          image: darauday0/mongodb:v1
+          imagePullPolicy: Always
+
+--- 
+## to acheive pod to pod communication we use clusterip service as the pod is db teir and it will not exposed to public
+apiVersion: v1
+kind: service
+metadata:
+  name: mongodb
+  namespace: roboshop
+spec:
+  selector:
+    app: mongodb
+    project: roboshop
+    tier: db
+  ports:
+    - protocol: TCP
+      port: 27017 #service-port
+      targetPort: 27017 #container-port
+
