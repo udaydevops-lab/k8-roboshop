@@ -1,0 +1,64 @@
+# ConfigMap for User Application
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user
+  namespace: roboshop
+data:
+  MONGO: "true"        # Environment variable for MongoDB setting
+
+--- 
+# Deployment for User Application
+
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: user
+  namespace: roboshop
+  labels:
+    app: user
+    project: roboshop
+    tier: app
+spec:
+  replicas: 1
+  selector:                         # Selector for matching Pods with the correct labels
+    matchLabels:
+      app: user
+      project: roboshop
+      tier: app
+  template:
+    metadata:
+      labels:                         # Labels applied to each Pod created by this Deployment
+        app: user
+        project: roboshop
+        tier: app
+    spec:
+      containers:
+        - name: user
+          image: darauday0/user:v1
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:         # Reference to the ConfigMap containing environment variables
+                name: user
+          port:
+          - containerPort: 8080
+
+---
+# ClusterIP Service for User Application
+
+apiVersion: v1
+kind: service
+metadata:
+  name: user
+  namespace: roboshop
+spec:
+  type: ClusterIP
+  selector:
+    app: user
+    project: roboshop
+    tier: app
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

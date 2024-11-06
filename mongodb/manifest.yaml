@@ -1,3 +1,4 @@
+# Deployment for MongoDB database
 apiVersion: v1
 kind: Deployment
 metadata:
@@ -25,21 +26,24 @@ spec:
         - name: mongodb
           image: darauday0/mongodb:v1
           imagePullPolicy: Always
+          ports:
+          - containerPort: 27017    # Exposes the container's MongoDB port internally
 
 --- 
-## to acheive pod to pod communication we use clusterip service as the pod is db teir and it will not exposed to public
+# ClusterIP Service for MongoDB
 apiVersion: v1
 kind: service
 metadata:
   name: mongodb
   namespace: roboshop
 spec:
+  type: ClusterIP       # Internal-only Service for Pod-to-Pod communication
   selector:
     app: mongodb
     project: roboshop
     tier: db
   ports:
     - protocol: TCP
-      port: 27017 #service-port
-      targetPort: 27017 #container-port
+      port: 27017          # Service port, used by other Pods to communicate with MongoDB
+      targetPort: 27017    # Maps to the MongoDB container port
 

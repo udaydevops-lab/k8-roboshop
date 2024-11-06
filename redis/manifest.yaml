@@ -1,0 +1,49 @@
+# Deployment for Redis
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: roboshop
+  labels:
+    app: redis
+    project: roboshop
+    tier: db
+spec:
+  replicas: 1
+  matchLabels:                  # Define the labels to match Pods for this Deployment number of replicas for the pod
+    app: redis
+    project: roboshop
+    tier: db
+  template:
+    metadata:
+      labels:       
+        app: redis
+        project: roboshop
+        tier: db
+    spec:
+      containers:
+        - name: redis
+          image: redis              # Redis image from Docker Hub
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 6379   # Port on which Redis listens within the container
+
+---
+# ClusterIP Service for Redis
+
+apiVersion: v1
+kind: service
+metadata:
+  name: redis
+  namespace: roboshop
+spec:
+  type: ClusterIP
+  selector:
+    app: redis
+    project: roboshop
+    tier: db
+  ports:
+    - protocol: TCP
+      port: 6379
+      targetPort: 6379
+
