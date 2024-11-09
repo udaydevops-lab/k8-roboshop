@@ -41,7 +41,7 @@ spec:
           envFrom:
             - configMapRef:         # Reference to the ConfigMap containing environment variables
                 name: user
-          port:
+          ports:
           - containerPort: 8080
 
 ---
