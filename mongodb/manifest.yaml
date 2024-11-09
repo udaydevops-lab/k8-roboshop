@@ -1,9 +1,9 @@
 # Deployment for MongoDB database
-apiVersion: v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongodb
-  namespace:
+  namespace: roboshop
   labels:             # these labels are deployment labels
     app: mongodb
     project: roboshop
@@ -32,7 +32,7 @@ spec:
 --- 
 # ClusterIP Service for MongoDB
 apiVersion: v1
-kind: service
+kind: Service
 metadata:
   name: mongodb
   namespace: roboshop
