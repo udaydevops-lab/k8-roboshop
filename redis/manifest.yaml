@@ -1,5 +1,5 @@
 # Deployment for Redis
-apiVersion: v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis
@@ -32,7 +32,7 @@ spec:
 # ClusterIP Service for Redis
 
 apiVersion: v1
-kind: service
+kind: Service
 metadata:
   name: redis
   namespace: roboshop
