@@ -11,7 +11,7 @@ data:
 --- 
 # Deployment for User Application
 
-apiVersion: v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: user
@@ -48,7 +48,7 @@ spec:
 # ClusterIP Service for User Application
 
 apiVersion: v1
-kind: service
+kind: Service
 metadata:
   name: user
   namespace: roboshop
