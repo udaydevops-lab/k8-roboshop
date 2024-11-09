@@ -136,7 +136,7 @@ spec:
     spec:
       containers:
       - name: web
-        image: darauday0/web:v1
+        image: joindevops/web:v1
         imagePullPolicy: Always
         volumeMounts:                               # Mount the ConfigMap as a volume within the container
           - name: nginx-conf                        # Reference the volume name defined below
