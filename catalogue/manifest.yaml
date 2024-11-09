@@ -1,6 +1,6 @@
 # ConfigMap for catalogue configuration
 apiVersion: v1
-kind: configMap
+kind: ConfigMap
 metadata:
   name: catalogue
   namespace: roboshop
@@ -9,7 +9,7 @@ data:
 
 ---
 # Deployment for catalogue application
-apiVersion: v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: catalogue
