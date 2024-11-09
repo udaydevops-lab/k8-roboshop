@@ -17,14 +17,14 @@ metadata:
   labels:                       # these labels are deployment labels
     app: catalogue
     project: roboshop
-    tier: db
+    tier: app
 spec:
   replicas: 1
   selector:                     # this with select the pod with the given matchlables
     matchLabels:                # these labels are used to find the pods
       app: catalogue
       project: roboshop
-      tier: db
+      tier: app
   template:
     metadata:
       labels:                   # these labels are pod lables
