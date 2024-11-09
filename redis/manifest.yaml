@@ -10,10 +10,11 @@ metadata:
     tier: db
 spec:
   replicas: 1
-  matchLabels:                  # Define the labels to match Pods for this Deployment number of replicas for the pod
-    app: redis
-    project: roboshop
-    tier: db
+  selector:
+    matchLabels:                  # Define the labels to match Pods for this Deployment number of replicas for the pod
+      app: redis
+      project: roboshop
+      tier: db
   template:
     metadata:
       labels:       
