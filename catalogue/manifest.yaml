@@ -65,7 +65,7 @@ spec:
 ---
 # Service to expose catalogue application
 apiVersion: v1
-kind: service
+kind: Service
 metadata:
   name: catalogue
   namespace: roboshop
@@ -78,6 +78,6 @@ spec:
     - protocol: TCP
       port: 8080 # service port
       targetPort: 8080 # container port
-  type: ClusterIP     # it is default service
+
 
   
